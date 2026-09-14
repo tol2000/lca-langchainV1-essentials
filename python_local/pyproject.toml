@@ -1,6 +1,6 @@
 [project]
 # Only needed so uv/pip recognizes it as a project
-name = "notebooks-to-explore"
+name = "notebooks-to-explore-local"
 version = "0.0.0"
 description = "A collection of tutorial notebooks"
 requires-python = ">=3.11,<3.14"
