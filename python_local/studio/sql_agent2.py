@@ -10,6 +10,8 @@ from sql_db import SQLDatabase
 from langchain_core.messages import SystemMessage
 from langchain_core.tools import tool
 
+# Use local Ollama model by default, or initialize a Google GenAI model:
+# llm = init_chat_model("google_genai:gemini-2.5-flash")
 llm = init_chat_model(
     "ollama:gpt-oss", temperature=0,
     base_url="http://localhost:11434"

@@ -10,7 +10,7 @@ from sql_db import SQLDatabase
 from langchain_core.messages import SystemMessage
 from langchain_core.tools import tool
 
-llm = init_chat_model("openai:gpt-5")
+llm = init_chat_model("google_genai:gemini-2.5-flash")
 
 # Get the database, store it locally
 

@@ -36,12 +36,12 @@ Make a copy of example.env
 cp example.env .env
 ```
 
-Insert API keys directly into .env file, [OpenAI](https://openai.com/index/openai-api/) (required) and [LangSmith](#getting-started-with-langsmith) (optional)
+Insert API keys directly into .env file, [Google AI Studio](https://aistudio.google.com/) (required) and [LangSmith](#getting-started-with-langsmith) (optional)
 
 ```bash
-# Add OpenAI API key
-OPENAI_API_KEY=your_openai_api_key_here
-# The course is written with OpenAI models, but you can choose others if you prefer. 
+# Add Google API key
+GOOGLE_API_KEY=your_google_api_key_here
+# The course is written with Google GenAI models, but you can choose others if you prefer. 
 # Be sure to add the key and modify the code to call your preferred model
 #ANTHROPIC_API_KEY=your_anthropic_api_key_here_if_you_prefer
 
