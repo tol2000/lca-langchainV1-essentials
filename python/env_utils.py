@@ -9,6 +9,16 @@ def summarize_value(value: str) -> str:
         return lower
     return "****" + value[-4:] if len(value) > 4 else "****" + value
 
+def sync_api_keys():
+    """Map AI_API_KEY to provider keys if set."""
+    ai_api_key = os.getenv("AI_API_KEY")
+    if ai_api_key:
+        os.environ.setdefault("GOOGLE_API_KEY", ai_api_key)
+        os.environ.setdefault("ANTHROPIC_API_KEY", ai_api_key)
+        os.environ.setdefault("OPENAI_API_KEY", ai_api_key)
+
+sync_api_keys()
+
 def doublecheck_env(file_path: str):
     """Check environment variables against a .env file and print summaries."""
     if not os.path.exists(file_path):
@@ -17,11 +27,14 @@ def doublecheck_env(file_path: str):
         print("This is just a check and is not required.\n")
         return
 
+    sync_api_keys()
+
     parsed = dotenv_values(file_path)
     for key in parsed.keys():
         current = os.getenv(key)
         if current is not None:
-            print(f"{key}={summarize_value(current)}")
+            val = summarize_value(current) if "KEY" in key or "SECRET" in key or "TOKEN" in key else current
+            print(f"{key}={val}")
         else:
             print(f"{key}=<not set>")
 

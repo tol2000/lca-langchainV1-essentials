@@ -44,7 +44,8 @@ Add your API keys to the `.env` file:
 
 ```env
 # Required for model usage
-ANTHROPIC_API_KEY=your_anthropic_api_key_here
+AI_API_KEY=your_api_key_here
+AI_MODEL=anthropic:claude-sonnet-4-6
 
 # Optional: For evaluation and tracing
 LANGSMITH_API_KEY=your_langsmith_api_key_here

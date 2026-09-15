@@ -36,14 +36,12 @@ Make a copy of example.env
 cp example.env .env
 ```
 
-Insert API keys directly into .env file, [Google AI Studio](https://aistudio.google.com/) (required) and [LangSmith](#getting-started-with-langsmith) (optional)
+Insert API keys directly into .env file, `AI_API_KEY` (required) and [LangSmith](#getting-started-with-langsmith) (optional)
 
 ```bash
-# Add Google API key
-GOOGLE_API_KEY=your_google_api_key_here
-# The course is written with Google GenAI models, but you can choose others if you prefer. 
-# Be sure to add the key and modify the code to call your preferred model
-#ANTHROPIC_API_KEY=your_anthropic_api_key_here_if_you_prefer
+# Required for model usage
+AI_API_KEY=your_api_key_here
+AI_MODEL=google_genai:gemini-2.5-flash
 
 # Optional API key for LangSmith tracing
 LANGSMITH_API_KEY=your_langsmith_api_key_here

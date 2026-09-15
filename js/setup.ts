@@ -1,6 +1,18 @@
 import "dotenv/config";
 import { BaseMessage } from "langchain";
 
+if (process.env.AI_API_KEY) {
+    if (!process.env.ANTHROPIC_API_KEY) {
+        process.env.ANTHROPIC_API_KEY = process.env.AI_API_KEY;
+    }
+    if (!process.env.GOOGLE_API_KEY) {
+        process.env.GOOGLE_API_KEY = process.env.AI_API_KEY;
+    }
+    if (!process.env.OPENAI_API_KEY) {
+        process.env.OPENAI_API_KEY = process.env.AI_API_KEY;
+    }
+}
+
 // Issues running in the Deno kernel prevent tracing in some cases.
 // Commented out 2026-04-04 — tracing appears to work with current packages.
 // Deno.env.set("LANGSMITH_TRACING", "false");

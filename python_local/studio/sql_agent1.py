@@ -1,5 +1,6 @@
 """SQL agent for studio."""
 
+import os
 import pathlib
 import re
 
@@ -12,9 +13,10 @@ from langchain_core.tools import tool
 
 # Use local Ollama model by default, or initialize a Google GenAI model:
 # llm = init_chat_model("google_genai:gemini-2.5-flash")
+model_name = os.getenv("AI_MODEL", "ollama:gpt-oss")
 llm = init_chat_model(
-    "ollama:gpt-oss", temperature=0,
-    base_url="http://localhost:11434"
+    model_name, temperature=0,
+    base_url="http://localhost:11434" if model_name.startswith("ollama:") else None
 )
 
 # Get the database, store it locally

@@ -1,25 +1,34 @@
 // Sql agent
 import "dotenv/config";
 import { createAgent, tool } from "langchain";
-import { ChatOpenAI } from "@langchain/openai";
-import { ChatAnthropic } from "@langchain/anthropic";
 import { DataSource } from "typeorm";
 import { SqlDatabase } from "@langchain/classic/sql_db";
 import { MemorySaver } from "@langchain/langgraph";
 import { z } from "zod";
 
-const key = process.env.ANTHROPIC_API_KEY;
+if (process.env.AI_API_KEY) {
+  if (!process.env.ANTHROPIC_API_KEY) {
+    process.env.ANTHROPIC_API_KEY = process.env.AI_API_KEY;
+  }
+  if (!process.env.OPENAI_API_KEY) {
+    process.env.OPENAI_API_KEY = process.env.AI_API_KEY;
+  }
+  if (!process.env.GOOGLE_API_KEY) {
+    process.env.GOOGLE_API_KEY = process.env.AI_API_KEY;
+  }
+}
+
+const key = process.env.AI_API_KEY || process.env.ANTHROPIC_API_KEY || process.env.OPENAI_API_KEY;
 if (key === undefined) {
-  console.error("ANTHROPIC_API_KEY is not set");
+  console.error("AI_API_KEY is not set");
   process.exit(1);
 }
 
 /**
  * Model
- * - Uses your Anthropic key from .env if needed
+ * - Uses your AI_MODEL / Anthropic key from .env if needed
  */
-// const llm = new ChatOpenAI({ model: "gpt-5" });
-const llm = new ChatAnthropic({ model: "claude-sonnet-4-6" });
+const model = process.env.AI_MODEL || "anthropic:claude-sonnet-4-6";
 
 /**
  * Database
@@ -84,7 +93,7 @@ const checkpointer = new MemorySaver();
  * Agent (default export for langgraph.json "<file>:default")
  */
 const agent = createAgent({
-  model: llm,
+  model: model,
   tools: [execute_sql],
   systemPrompt: SYSTEM_PROMPT,
   checkpointer,
